@@ -10,6 +10,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getAppliedWorkOpportunityIds, getWorkOpportunity } from "@/lib/works";
 import { workCategoryLabel } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 function formatDate(value: Date) {
   const year = value.getFullYear();
   const month = String(value.getMonth() + 1).padStart(2, "0");

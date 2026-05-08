@@ -8,6 +8,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { getActiveWorkOpportunities, getAppliedWorkOpportunityIds } from "@/lib/works";
 import { cn, workCategoryLabel } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 const tabs = [
   ["all", "すべて"],
   ["CAFE", "カフェ"],

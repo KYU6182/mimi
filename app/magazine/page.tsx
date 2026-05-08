@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import SectionTitle from "@/components/SectionTitle";
 import { getMagazineIssues } from "@/lib/data";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "WEB雑誌 | mimi",
   description: "mimi magazineの最新号、巻頭特集、地域代表、新人賞、編集部ピックを紹介します。"

@@ -29,6 +29,8 @@ import {
 import { db } from "@/lib/db";
 import { lineUrl, splitTags, getJstDateString, workCategoryLabel } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "マイページ | mimi",
   description: "mimiでの推し登録、応援履歴、プロフィール編集、PR案件応募履歴を確認できます。"

@@ -12,6 +12,8 @@ import {
 } from "@/lib/rankings";
 import { cn } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "ランキング | mimi",
   description: "mimi girlsの総合・新人・急上昇・地域別ランキングをチェックできます。"

@@ -27,6 +27,8 @@ import { getHomeActivityLogs } from "@/lib/activity";
 import { getHomeEvents } from "@/lib/events";
 import { getHomeRankingPreview } from "@/lib/rankings";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [girls, todayGirl, activityLogs, monthlyEvents, issue, user, rankingPreview] = await Promise.all([
     getGirls({ sort: "popular" }),

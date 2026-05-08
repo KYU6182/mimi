@@ -29,6 +29,8 @@ import { getAdminDashboardData } from "@/lib/admin";
 import { requireAdmin } from "@/lib/auth";
 import { splitTags, workCategoryLabel } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "mimi 管理画面 | mimi",
   description: "mimiのモデル承認、PR案件、雑誌、コメントを管理します。"

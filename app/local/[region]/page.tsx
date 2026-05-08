@@ -6,6 +6,8 @@ import WorkCard from "@/components/WorkCard";
 import FinalEntryCta from "@/components/FinalEntryCta";
 import { getLocalFeature, getRegionRanking } from "@/lib/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function LocalPage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;
   const [local, ranking] = await Promise.all([getLocalFeature(region), getRegionRanking(region, 5)]);
