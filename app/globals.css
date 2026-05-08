@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --mimi-bg: #fbf6f3;
+  --mimi-paper: #fffdfc;
+  --mimi-card: #ffffff;
+  --mimi-ink: #60484a;
+  --mimi-muted: #9b7d80;
+  --mimi-line: #eadcdd;
+  --mimi-pink: #d9798c;
+  --mimi-pink-light: #f3c6cf;
+  --mimi-pink-bg: #fcecf0;
+  --mimi-beige: #e9d8cb;
+  --mimi-green: #32c755;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--mimi-bg);
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(243, 198, 207, 0.28), transparent 28rem),
+    linear-gradient(180deg, var(--mimi-bg) 0%, var(--mimi-paper) 100%);
+  color: var(--mimi-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mimi-scrollbar {
+  scrollbar-width: none;
+}
+
+.mimi-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.mimi-card {
+  border: 1px solid var(--mimi-line);
+  background: rgba(255, 253, 252, 0.96);
+  box-shadow: 0 12px 30px rgba(96, 72, 74, 0.1);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.mimi-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(96, 72, 74, 0.12);
+}
+
+.mimi-glass {
+  background: rgba(255, 253, 252, 0.78);
+  backdrop-filter: blur(18px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.mimi-float-in {
+  animation: mimiFloatIn 2.6s ease-in-out infinite;
+}
+
+.mimi-live-badge {
+  animation: mimiLivePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes mimiFloatIn {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(-2px);
+    opacity: 0.88;
+  }
+}
+
+@keyframes mimiLivePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 121, 140, 0.28);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(217, 121, 140, 0);
+  }
+}

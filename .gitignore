@@ -1,0 +1,12 @@
+node_modules
+.next
+.npm-cache
+.next-dev.*
+*.log
+.env
+.env.local
+.env*.local
+
+# Keep local SQLite out of source control in normal repos.
+prisma/dev.db
+prisma/dev.db-journal

@@ -1,0 +1,266 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MODEL
+  FAN
+  ADMIN
+}
+
+enum CommentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum WorkCategory {
+  CAFE
+  SALON
+  NAIL
+  APPAREL
+  COSMETIC
+  MODEL
+  OTHER
+}
+
+model User {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  passwordHash String
+  role         Role              @default(FAN)
+  nickname     String?
+  region       String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  modelProfile ModelProfile?
+  votes        Vote[]
+  favorites    Favorite[]
+  comments     SupportComment[]
+  applications WorkApplication[]
+}
+
+model ModelProfile {
+  id             String              @id @default(cuid())
+  userId         String              @unique
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName    String
+  slug           String              @unique
+  region         String
+  prefecture     String
+  age            Int
+  instagram      String?
+  bio            String
+  reason         String
+  goal           String
+  editorComment  String?
+  styleTags      String
+  interestTags   String
+  mainImageUrl   String
+  coverImageUrl  String
+  isPublished    Boolean             @default(true)
+  profileBoosted Boolean             @default(false)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  votes          Vote[]
+  favorites      Favorite[]
+  comments       SupportComment[]
+  growthRecords  GrowthRecord[]
+  coverEntries   CoverContestEntry[]
+
+  @@index([region])
+  @@index([isPublished])
+  @@index([createdAt])
+}
+
+model Vote {
+  id             String       @id @default(cuid())
+  voterId        String
+  voter          User         @relation(fields: [voterId], references: [id], onDelete: Cascade)
+  modelProfileId String
+  modelProfile   ModelProfile @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  votedDate      String
+  createdAt      DateTime     @default(now())
+
+  @@unique([voterId, modelProfileId, votedDate])
+  @@index([modelProfileId])
+  @@index([voterId])
+  @@index([createdAt])
+}
+
+model Favorite {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modelProfileId String
+  modelProfile   ModelProfile @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+
+  @@unique([userId, modelProfileId])
+  @@index([userId])
+  @@index([modelProfileId])
+}
+
+model SupportComment {
+  id             String        @id @default(cuid())
+  userId         String
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modelProfileId String
+  modelProfile   ModelProfile  @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  body           String
+  status         CommentStatus @default(APPROVED)
+  createdAt      DateTime      @default(now())
+
+  @@index([modelProfileId])
+  @@index([userId])
+  @@index([status])
+}
+
+model MagazineIssue {
+  id            String            @id @default(cuid())
+  title         String
+  slug          String            @unique
+  coverImageUrl String
+  description   String
+  publishedAt   DateTime
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @default(now()) @updatedAt
+  articles      MagazineArticle[]
+
+  @@index([publishedAt])
+}
+
+model MagazineArticle {
+  id           String        @id @default(cuid())
+  issueId      String
+  issue        MagazineIssue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  title        String
+  slug         String        @unique
+  category     String
+  thumbnailUrl String
+  body         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+
+  @@index([issueId])
+}
+
+model WorkOpportunity {
+  id           String            @id @default(cuid())
+  title        String
+  category     WorkCategory
+  region       String
+  description  String
+  imageUrl     String
+  rewardText   String?
+  deadline     DateTime
+  isActive     Boolean           @default(true)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @default(now()) @updatedAt
+  applications WorkApplication[]
+
+  @@index([category])
+  @@index([region])
+  @@index([isActive])
+}
+
+model WorkApplication {
+  id                String            @id @default(cuid())
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workOpportunityId String
+  workOpportunity   WorkOpportunity   @relation(fields: [workOpportunityId], references: [id], onDelete: Cascade)
+  message           String
+  status            ApplicationStatus @default(PENDING)
+  createdAt         DateTime          @default(now())
+
+  @@unique([userId, workOpportunityId])
+  @@index([userId])
+  @@index([workOpportunityId])
+}
+
+model SalonPartner {
+  id          String   @id @default(cuid())
+  name        String
+  region      String
+  prefecture  String?
+  category    String
+  imageUrl    String?
+  description String?
+  url         String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  @@index([region])
+  @@index([category])
+}
+
+model CoverContest {
+  id         String              @id @default(cuid())
+  title      String
+  slug       String              @unique
+  monthLabel String
+  startsAt   DateTime?
+  endsAt     DateTime?
+  isActive   Boolean             @default(false)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @default(now()) @updatedAt
+  entries    CoverContestEntry[]
+}
+
+model CoverContestEntry {
+  id             String       @id @default(cuid())
+  contestId      String
+  contest        CoverContest @relation(fields: [contestId], references: [id], onDelete: Cascade)
+  modelProfileId String
+  modelProfile   ModelProfile @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+
+  @@unique([contestId, modelProfileId])
+  @@index([contestId])
+  @@index([modelProfileId])
+}
+
+model GrowthRecord {
+  id             String       @id @default(cuid())
+  modelProfileId String
+  modelProfile   ModelProfile @relation(fields: [modelProfileId], references: [id], onDelete: Cascade)
+  title          String
+  description    String?
+  occurredAt     DateTime
+  createdAt      DateTime     @default(now())
+
+  @@index([modelProfileId])
+  @@index([occurredAt])
+}
+
+model RegionFeature {
+  id          String   @id @default(cuid())
+  region      String
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model ShopSpot {
+  id          String   @id @default(cuid())
+  region      String
+  name        String
+  category    String
+  imageUrl    String
+  description String
+  url         String?
+  createdAt   DateTime @default(now())
+}
