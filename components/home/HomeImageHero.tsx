@@ -34,6 +34,9 @@ export default function HomeImageHero() {
           <span className="whitespace-nowrap">エントリーして参加する</span>
           <ChevronRight size={20} strokeWidth={2.4} className="shrink-0" />
         </Link>
+        <p className="mx-auto mt-3 max-w-[320px] text-center text-[11px] font-bold leading-relaxed text-[#9B7D80]">
+          フォロワー数より、あなたの“好き”を見つけるエントリーです。
+        </p>
       </div>
     </section>
   );

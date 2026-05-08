@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mimi-omega-rust.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3001"),
+  metadataBase: new URL(appUrl),
   title: "mimi | 普通の女の子が、誰かの推しになる場所。",
   description:
     "まだ有名じゃない、かわいいあの子を見つけて応援できるZ世代向けWEB雑誌・モデルコミュニティ。",

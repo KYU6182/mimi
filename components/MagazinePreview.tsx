@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { BookOpen, ChevronRight } from "lucide-react";
 import type { MagazineArticle, MagazineIssue } from "@prisma/client";
 import MagazineArchiveStrip from "@/components/MagazineArchiveStrip";
 import type { MagazineArchiveItem } from "@/lib/home-data";
@@ -17,7 +17,13 @@ export default function MagazinePreview({
     <article className="mimi-card space-y-3 rounded-[26px] p-3">
       <div className="grid grid-cols-[132px_1fr] gap-2.5 sm:grid-cols-[145px_1fr] sm:gap-3">
         <Link href="/magazine" className="relative h-[205px] overflow-hidden rounded-[20px] bg-rose-mist sm:h-[218px]">
-          <Image src={issue.coverImageUrl} alt={issue.title} fill className="object-cover" sizes="145px" />
+          {issue.coverImageUrl ? (
+            <Image src={issue.coverImageUrl} alt={issue.title} fill className="object-cover" sizes="145px" />
+          ) : (
+            <div className="grid h-full place-items-center px-3 text-center">
+              <p className="font-logo text-3xl text-rose">mimi</p>
+            </div>
+          )}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/55 to-transparent p-3 text-white">
             <p className="text-[10px] font-black">最新号の表紙</p>
             <p className="font-logo text-[21px] leading-none sm:text-[24px]">{issue.title}</p>
@@ -44,7 +50,13 @@ export default function MagazinePreview({
             {issue.articles.slice(0, 2).map((article) => (
               <Link key={article.id} href="/magazine" className="flex gap-2 rounded-2xl bg-rose-mist/45 p-1.5 sm:p-2">
                 <div className="relative size-11 shrink-0 overflow-hidden rounded-xl bg-paper sm:size-12">
-                  <Image src={article.thumbnailUrl} alt={article.title} fill className="object-cover" sizes="48px" />
+                  {article.thumbnailUrl ? (
+                    <Image src={article.thumbnailUrl} alt={article.title} fill className="object-cover" sizes="48px" />
+                  ) : (
+                    <div className="grid h-full place-items-center text-rose">
+                      <BookOpen size={17} />
+                    </div>
+                  )}
                 </div>
                 <div className="min-w-0">
                   <p className="text-[10px] font-bold text-rose">{article.category}</p>

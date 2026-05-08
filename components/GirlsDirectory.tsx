@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { RotateCcw, SlidersHorizontal, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 import GirlCard from "@/components/GirlCard";
@@ -78,6 +79,39 @@ export default function GirlsDirectory({ girls }: { girls: GirlCardData[] }) {
     setSelectedRegions([]);
     setSelectedTags([]);
     setSort("popular");
+  }
+
+  if (girls.length === 0) {
+    return (
+      <div className="space-y-5 px-3.5 py-5 min-[390px]:px-4">
+        <section className="px-3 text-center">
+          <p className="font-logo text-[28px] leading-tight text-ink">mimi girlsを見つける</p>
+          <p className="mt-2 text-xs font-bold leading-5 text-muted">
+            まだ有名じゃない、かわいい子を見つけよう
+          </p>
+        </section>
+
+        <section className="mimi-card rounded-[28px] p-6 text-center">
+          <div className="mx-auto mb-3 grid size-14 place-items-center rounded-full bg-rose-mist text-rose">
+            <Sparkles size={24} />
+          </div>
+          <p className="font-logo text-[25px] text-ink">mimi girls公開準備中</p>
+          <p className="mt-3 text-sm font-bold leading-7 text-muted">
+            編集部でエントリーを確認しています。
+            <br />
+            公開モデルが増えると、地域や系統タグで推しを探せるようになります。
+          </p>
+          <div className="mt-5 grid gap-2">
+            <Link href="/entry" className="flex h-11 items-center justify-center rounded-full bg-rose text-xs font-black text-white shadow-soft">
+              mimi girlsにエントリーする
+            </Link>
+            <Link href="/register" className="flex h-11 items-center justify-center rounded-full border border-line bg-paper text-xs font-black text-rose">
+              ユーザー登録して公開を待つ
+            </Link>
+          </div>
+        </section>
+      </div>
+    );
   }
 
   return (

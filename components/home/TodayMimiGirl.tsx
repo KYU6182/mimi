@@ -15,9 +15,22 @@ export default function TodayMimiGirl({ girl }: { girl: GirlCardData | null }) {
   if (!girl) {
     return (
       <section className="mimi-card rounded-[26px] p-5 text-center">
+        <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-rose-mist text-rose">
+          <Sparkles size={22} />
+        </div>
         <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-rose">today&apos;s pick</p>
-        <h2 className="mt-1 font-logo text-[24px] text-ink">今日のmimi girl</h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted">mimi girls公開準備中です。</p>
+        <h2 className="mt-1 font-logo text-[24px] text-ink">mimi girls公開準備中</h2>
+        <p className="mt-2 text-sm font-bold leading-relaxed text-muted">
+          編集部でエントリーを確認中です。
+          <br />
+          掲載されると、今日の注目mimi girlとして紹介されます。
+        </p>
+        <Link
+          href="/entry"
+          className="mt-4 inline-flex h-10 items-center justify-center rounded-full bg-rose px-5 text-xs font-black text-white shadow-soft"
+        >
+          mimi girlsにエントリーする
+        </Link>
       </section>
     );
   }

@@ -3,6 +3,7 @@ import AppShell from "@/components/AppShell";
 import Header from "@/components/Header";
 import RankingCard from "@/components/RankingCard";
 import SectionTitle from "@/components/SectionTitle";
+import { Crown, Sparkles } from "lucide-react";
 import {
   getCoverCandidateRanking,
   getNewcomerRanking,
@@ -66,12 +67,37 @@ export default async function RankingPage({
           ))}
         </div>
         <p className="text-center text-[11px] font-bold text-rose">毎日0時に更新</p>
-        {first ? <RankingCard girl={first} large /> : null}
-        <div className="space-y-2">
-          {ranking.slice(1).map((girl) => (
-            <RankingCard key={girl.id} girl={girl} />
-          ))}
-        </div>
+        {first ? (
+          <>
+            <RankingCard girl={first} large />
+            <div className="space-y-2">
+              {ranking.slice(1).map((girl) => (
+                <RankingCard key={girl.id} girl={girl} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <section className="mimi-card rounded-[28px] p-6 text-center">
+            <div className="mx-auto mb-3 grid size-14 place-items-center rounded-full bg-rose-mist text-rose">
+              <Crown size={25} />
+            </div>
+            <p className="font-logo text-[25px] text-ink">ランキング公開準備中</p>
+            <p className="mt-3 text-sm font-bold leading-7 text-muted">
+              mimi girlsが公開されると、
+              <br />
+              応援数にあわせて毎日ランキングが更新されます。
+            </p>
+            <div className="mt-5 grid gap-2">
+              <Link href="/entry" className="flex h-11 items-center justify-center rounded-full bg-rose text-xs font-black text-white shadow-soft">
+                mimi girlsにエントリーする
+              </Link>
+              <Link href="/girls" className="flex h-11 items-center justify-center gap-1 rounded-full border border-line bg-paper text-xs font-black text-rose">
+                公開中のmimi girlsを見る
+                <Sparkles size={14} />
+              </Link>
+            </div>
+          </section>
+        )}
       </div>
     </AppShell>
   );
